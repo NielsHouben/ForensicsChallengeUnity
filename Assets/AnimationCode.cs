@@ -16,7 +16,8 @@ public class AnimationCode : MonoBehaviour
     void Start()
     {
         // lines = System.IO.File.ReadLines("Assets/AnimationFile.txt").ToList();
-        lines = System.IO.File.ReadLines("Assets/AnimationFileCrime.txt").ToList();
+        // lines = System.IO.File.ReadLines("Assets/AnimationFileCrime2.txt").ToList();
+        lines = System.IO.File.ReadLines("Assets/AnimationFileCrimePerson1.txt").ToList();
 
 
     }
@@ -24,19 +25,30 @@ public class AnimationCode : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        string[] points = lines[counter].Split(',');
-
-        for (int i =0; i<=32;i++)
+        if (!string.IsNullOrEmpty(lines[counter]))
         {
-            float x = float.Parse(points[0 + (i * 3)]) / 100;
-            float y = float.Parse(points[1 + (i * 3)]) / 100;
-            float z = float.Parse(points[2 + (i * 3)]) / 300;
-            Body[i].transform.localPosition = new Vector3(x, y, z);
+            print(lines[counter]);
+            string[] points = lines[counter].Split(',');
+
+            for (int i =0; i<=32;i++)
+            {
+                float x = float.Parse(points[0 + (i * 3)]) / 100;
+                float y = float.Parse(points[1 + (i * 3)]) / 100;
+                float z = float.Parse(points[2 + (i * 3)]) / 300;
+                Body[i].transform.localPosition = new Vector3(x, y, z);
+            }
+        }
+        else
+        {
+            for (int i =0; i<=32;i++)
+            {
+                Body[i].transform.localPosition = new Vector3(-1000, 0, -1000);
+            }
         }
 
   
         counter += 1;
         if (counter == lines.Count) { counter = 0; }
-        Thread.Sleep(30);
+        // Thread.Sleep(30);
     }
 }
